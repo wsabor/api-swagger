@@ -1,0 +1,100 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Tarefas",
+      "version": "1.0.0",
+      "description": "API simples para gerenciamento de tarefas."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "paths": {
+      "/tarefas": {
+        "get": {
+          "summary": "Lista todas as tarefas",
+          "responses": {
+            "200": {
+              "description": "Lista de tarefas",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Tarefa"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Cria uma nova tarefa",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tarefa"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Tarefa criada com sucesso"
+            }
+          }
+        }
+      },
+      "/tarefas/{id}": {
+        "get": {
+          "summary": "Obtém uma tarefa pelo ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tarefa encontrada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Tarefa"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Tarefa não encontrada"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Tarefa": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "titulo": {
+              "type": "string"
+            },
+            "concluido": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
